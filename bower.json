@@ -1,0 +1,14 @@
+{
+  "name": "EBD Prototype",
+  "version": "0.0.1",
+  "authors": [
+    "Tom Hart <tom.hart@manchester.ac.uk>"
+  ],
+  "description": "Protoype for Exploring British Design",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.3.13",
+    "bootstrap": "~3.3.2",
+    "hyperagent": "~0.4.0"
+  }
+}

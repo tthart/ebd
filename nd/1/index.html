@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Exploring British Design</title>
+   <link rel="stylesheet" type="text/css" href="../../css/foundation.min.css">
+   <link rel="stylesheet" type="text/css" href="../../css/style.css">
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="../../node_modules/jointjs/joint.css">
+    <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+    <script src="../../js/foundation.min.js"></script>
+          <script src="../../node_modules/jointjs/node_modules/lodash/lodash.js"></script>
+        <script src="../../node_modules/jointjs/node_modules/backbone/backbone.js"></script>
+ 
+
+    <script src="../../node_modules/jointjs/dist/joint.all.js"></script>
+     <script type="text/javascript" src="../../js/traverson-hal.js"></script>
+ <script type="text/javascript" src="../../js/traverson.js"></script>
+  
+  </head>
+  <body>
+ <nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">Exploring British Design</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="active"><a href="#">Right Button Active</a></li>
+      <li class="has-dropdown">
+        <a href="#">Right Button Dropdown</a>
+        <ul class="dropdown">
+          <li><a href="#">First link in dropdown</a></li>
+          <li class="active"><a href="#">Active link in dropdown</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li><a href="#"></a></li>
+    </ul>
+  </section>
+</nav>
+<div id="paper"></div>
+ <div class="row">
+     <div id="json_hal_response" class="large-12 columns"></div>
+      	
+      </div>
+    </div>
+       <style>
+            #paper {
+                width: 2000px;
+                height: 2000px;
+                border: 1px solid gray;
+            }
+        </style>
+   
+<script>
+
+
+
+  traverson.registerMediaType(TraversonJsonHalAdapter.mediaType,
+        TraversonJsonHalAdapter);
+		
+      //  var url = "http://54.72.154.243/ebd/ebd/exhibition/http%3A//data.archiveshub.ac.uk/ebd/id/event/Britain%2520Can%2520Make%2520It";
+	  var url = "http://54.72.154.243/ebd/ebd/network/http%3A//viaf.org/viaf/95945602";
+        var href;
+        var html;
+        var name;
+        var api = traverson
+            .from(url) // set root URL
+            .jsonHal();
+	
+        api.newRequest().getResource(function(error, resource, traversal) {
+console.log(resource);
+var graph = new joint.dia.Graph;
+
+var paper = new joint.dia.Paper({
+    el: $('#paper'),
+    width: 2000,
+    height: 2000,
+    gridSize: 1,
+    model: graph
+});
+
+var erd = joint.shapes.erd;
+
+var element = function(elm, x, y, label) {
+    var cell = new elm({ position: { x: x, y: y }, attrs: { text: { text: label }}});
+    graph.addCell(cell);
+    return cell;
+};
+
+var link = function(elm1, elm2) {
+    var myLink = new erd.Line({ source: { id: elm1.id }, target: { id: elm2.id }});
+    graph.addCell(myLink);
+    return myLink;
+};
+/**Need to make dynamic**/var mainlink = element(erd.IdentifyingRelationship, 200, 300, "Exhibition");
+var count=0;
+
+obj = resource._embedded.relation;
+var old;
+for(var key in obj)
+{
+	count+=50;
+var person;
+	obj2 = obj[key];
+	console.log(obj2);
+//var person = element(erd.Entity, 500, 400, obj2._embedded.subject.displayName);
+	console.log(obj2.relTypeLabel);
+	var object = element(erd.Entity, 10+count, 30+count, obj2._embedded.object.displayName);
+	var relationType = element(erd.IdentifyingRelationship, 100+count, 190+count, obj2.relTypeLabel);
+	if(person=old)
+	{
+	person = old;	
+	}
+	else
+	{
+	var person = element(erd.Entity, 500, 400, obj2._embedded.subject.displayName);
+	}
+	link(mainlink,person);
+	link(person,relationType);
+	link(object,relationType);
+	old=person;
+	
+
+}
+});
+</script>
+<script src="nd.js"></script>
+  </body>
+</html>

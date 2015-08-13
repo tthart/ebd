@@ -1,0 +1,66 @@
+{
+"_embedded": {
+"relation": [
+{
+"relTypeDef": "The two entities work together on personal or business ventures.",
+"_embedded": {
+"object": {
+"type": "person",
+"_links": {
+"self": {
+"href": "/ebd/person/http%3A//viaf.org/viaf/36613026"
+}
+},
+"displayName": "Josiah Wedgwood"
+},
+"subject": {
+"type": "person",
+"_links": {
+"self": {
+"href": "/ebd/person/http%3A//viaf.org/viaf/230987748"
+}
+},
+"displayName": "Jane Drew",
+"displayNote": "(1891-1990) journalist"
+}
+},
+"_links": {
+"self": {
+"href": "/ebd/agentRelation/http%3A//data.archiveshub.ac.uk/ebd/id/relation/230987748/person/00004"
+}
+},
+"relTypeLabel": "collaborates with"
+},
+{
+"relTypeDef": "The subject entity engages the object entity as a provider of services in return for pay or goods.",
+"_embedded": {
+"object": {
+"type": "person",
+"_links": {
+"self": {
+"href": "/ebd/person/http%3A//viaf.org/viaf/51792789"
+}
+},
+"displayName": "Jane Drew",
+"displayNote": "(1911-1996) architect"
+},
+"subject": {
+"type": "corp",
+"_links": {
+"self": {
+"href": "/ebd/corp/http%3A//viaf.org/viaf/151183731"
+}
+},
+"displayName": "Alison Settle"
+}
+},
+"_links": {
+"self": {
+"href": "/ebd/agentRelation/http%3A//data.archiveshub.ac.uk/ebd/id/relation/51792789/corpbody/00003/i"
+}
+},
+"relTypeLabel": "employer of"
+}
+]
+}
+}

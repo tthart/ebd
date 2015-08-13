@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+    <script src="../js/foundation.min.js"></script>
+     <script type="text/javascript" src="../js/traverson-hal.js"></script>
+ <script type="text/javascript" src="../js/traverson.js"></script>
+     <script data-pace-options="elements: { selectors: ['#chart']; }" src="../js/pace.min.js"></script>
+    <script src="../js/main.js"></script>
+<style>
+
+.node {
+  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.link {
+  stroke: steelblue;
+  stroke-opacity: .4;
+  fill: none;
+}
+
+</style>
+  <title>Exploring British Design - Chart</title>
+   <link rel="stylesheet" type="text/css" href="../css/foundation.min.css">
+   <link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.2/release/featherlight.min.css" type="text/css" rel="stylesheet" title="Featherlight Styles" />
+  
+</head>
+<body>
+ <nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="/">Exploring British Design</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+    <li><a href="/about/">About</a></li>
+     <li><a href="/people/">People</a></li>
+     <li><a href="/organisations/">Organisations</a></li>
+      <li><a href="/exhibitions/">Exhibitions</a></li><li><a href="/places/">Places</a></li>
+ 
+
+
+    </ul>
+
+    
+  </section>
+</nav>
+<div id="chart-info" class="row hide">
+<h1 class="chart-title">Relationships</h1>
+<div id="example">
+<p>This page showcases a couple of example charts which can be created from this website. In order to view charts for data, click visualise chart and if information is available for the entity you are on, the chart will be displayed.</p>
+<h2>Relationships for individuals</h2>
+<ul>
+<li><a href="http://54.76.94.166/chart/?id=%2Febd%2Fnetwork%2Fhttp%253A%2F%2Fviaf.org%2Fviaf%2F96507782&name=Brian%20O%27Rorke&link=/ebd/person/http%3A//viaf.org/viaf/96507782">Brian O'rorke</a></li>
+<li><a href="http://54.76.94.166/chart/?id=%2Febd%2Fnetwork%2Fhttp%253A%2F%2Fdata.archiveshub.ac.uk%2Febd%2Fid%2Fperson%2FAufesserHans&name=Hans%20Aufesser&link=/ebd/person/http%3A//data.archiveshub.ac.uk/ebd/id/person/AufesserHans">Hans Aufesser</a></li>
+<li><a href="http://54.76.94.166/chart/?id=%2Febd%2Fnetwork%2Fhttp%253A%2F%2Fdata.archiveshub.ac.uk%2Febd%2Fid%2Fperson%2FBaltazanosBasil%252520Constantine&name=Basil%20Constantine%20Baltazanos&link=/ebd/person/http%3A//data.archiveshub.ac.uk/ebd/id/person/BaltazanosBasil%2520Constantine">Basil Constantine Baltazanos</a></li>
+</ul>
+<h2>Relationships for organisations</h2>
+<ul>
+<li><a href="http://54.76.94.166/chart/?id=%2Febd%2Fnetwork%2Fhttp%253A%2F%2Fviaf.org%2Fviaf%2F135948438&name=Modern%20Architectural%20Research%20Group&link=/ebd/corp/http%3A//viaf.org/viaf/135948438">Modern Architectural Research Group</a></li>
+<li><a href="http://54.76.94.166/chart/?id=%2Febd%2Fnetwork%2Fhttp%253A%2F%2Fviaf.org%2Fviaf%2F151183731&name=Architectural%20Association%20School%20of%20Architecture&link=/ebd/corp/http%3A//viaf.org/viaf/151183731">Architectural Association School of Architecture</a></li>
+</ul>
+<h2>Relationships for exhibitions</h2>
+<ul>
+<li><a href="http://54.76.94.166/chart/?id=%2Febd%2Fenetwork%2Fhttp%253A%2F%2Fdata.archiveshub.ac.uk%2Febd%2Fid%2Fevent%2FExpo%252520%252528International%252520Exhibitions%252520Bureau%252529%252520%2525281958%252520%25253A%252520Brussels%25252C%252520Belgium%252529&name=Expo%20(International%20Exhibitions%20Bureau)%20(1958%20%3A%20Brussels%2C%20Belgium)&link=/ebd/exhibition/http%3A//data.archiveshub.ac.uk/ebd/id/event/Expo%2520%2528International%2520Exhibitions%2520Bureau%2529%2520%25281958%2520%253A%2520Brussels%252C%2520Belgium%2529">Expo (International Exhibitions Bureau) (1958 : Brussels, Belgium)</a></li>
+<li><a href="http://54.76.94.166/chart/?id=%2Febd%2Fenetwork%2Fhttp%253A%2F%2Fdata.archiveshub.ac.uk%2Febd%2Fid%2Fevent%2FBritain%252520Can%252520Make%252520It&name=Britain%20Can%20Make%20It%20(1946)%2C%20Victoria%20and%20Albert%20Museum&link=/ebd/exhibition/http%3A//data.archiveshub.ac.uk/ebd/id/event/Britain%2520Can%2520Make%2520It">Britain can make it (Large example, zoom in to view names ctrl+)</a></li>
+<li><a href="http://54.76.94.166/chart/?id=%2Febd%2Fenetwork%2Fhttp%253A%2F%2Fdata.archiveshub.ac.uk%2Febd%2Fid%2Fevent%2FFestival%252520of%252520Britain&name=Festival%20of%20Britain&link=/ebd/exhibition/http%3A//data.archiveshub.ac.uk/ebd/id/event/Festival%2520of%2520Britain">Festival of Britain (Large example, zoom in to view names ctrl+)</a></li>
+</ul>
+</div>
+<div id="subject-info"></div>
+</div>
+<div id="chart"></div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+var uri = "";
+
+
+if(getParameterByName('id')) {
+	var uri = getParameterByName('id');
+	
+ traverson.registerMediaType(TraversonJsonHalAdapter.mediaType,
+        TraversonJsonHalAdapter);
+		
+/*******************/
+
+  var self = getParameterByName('link');
+  var name = getParameterByName('name');
+  if(name) {  $('.chart-title').html('<a href="javascript: history.go(-1)">' + name + '</a>');}
+	if(uri!="") {
+		$("#example").html("");
+	}
+	
+	
+
+        var url = "http://54.72.154.243" + uri;
+		
+        var href;
+        var html;
+        var name;
+        var api = traverson
+            .from(url) // set root URL
+            .jsonHal();
+
+
+   
+
+var diameter = 900,
+    radius = diameter / 2,
+    innerRadius = radius - 200;
+
+var cluster = d3.layout.cluster()
+    .size([360, innerRadius])
+    .sort(null)
+    .value(function(d) { return d.size; });
+
+var bundle = d3.layout.bundle();
+
+var line = d3.svg.line.radial()
+    .interpolate("bundle")
+    .tension(.85)
+    .radius(function(d) { return d.y; })
+    .angle(function(d) { return d.x / 180 * Math.PI; });
+	
+	
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+  .append("g")
+    .attr("transform", "translate(" + radius + "," + radius + ")");
+	
+	
+  api.newRequest().getResource(function(error, resource, traversal) {
+            var obj;
+			var note;
+			var decodeU;
+
+	
+		if(!resource._embedded.relation) {
+			console.log("no relations");
+		
+		} else 
+		{
+	
+  var nodes = cluster.nodes(packageHierarchy(resource._embedded.relation)),
+      links = packageImports(nodes);
+		}
+		var decodeU;
+		
+  svg.selectAll(".link")
+      .data(bundle(links))
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("d", line);
+
+  svg.selectAll(".node")
+      .data(nodes.filter(function(n) { return !n.children; }))
+	  
+    .enter()
+		 .append('a')
+    .attr("xlink:href", "#"/*function(d){return d.relTypeLabel;}*/)
+	
+	.attr("data-featherlight",
+	function(d){
+		var type = "";
+		var urlstring = "";
+		var networkurl = "";
+	
+		if(d.key==d._embedded.subject.displayName){
+			type = d._embedded.subject.type;
+			urlstring = getType(type);
+			//	networkurl = getNetworkURL("test");
+		decodeU = encodeURIComponent(d._embedded.subject._links.self.href);
+			var html='<h3>' + d._embedded.subject.displayName + '</h3><a href="'+urlstring+decodeU+'" class="button success">View more information about the entity</a>';
+		//	html+='<a href="/chart/?id='+networkurl+'" class="button success">Open the chart for this entity</a>';
+		return html;
+		}
+		else {
+		decodeU = encodeURIComponent(d._embedded.object._links.self.href);
+			type = d._embedded.subject.type;
+			urlstring = getType(type);
+				var html="";
+		html+='<h3>'+d._embedded.subject.displayName+'</h3>';
+		html+='<h4><abbr class="init" title="'+d.relTypeDef+'">'+d.relTypeLabel+'</abbr></h4>';
+		html+='<h3>'+d._embedded.object.displayName+'</h3>';
+			
+		html+='<a href="'+urlstring+decodeU+'" class="button success">View more information about the entity</a>';
+		html+='<a href="#" data-url="'+d._embedded.object._links.self.href+'" data-name="'+d.key+'" onclick="getURL(this)" class="button success">Open the chart for this entity</a>'
+		return html;
+		}
+		}
+		)
+	.append("g")
+	.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+	.attr("class", function(n) {
+		var string = n.key;
+	
+		//var result = string.search(n._embedded.subject.displayName);
+		//console.log(result);
+	
+		if(n.key==n._embedded.subject.displayName)
+		{
+			return "aNode node";
+		}  
+		else {
+			return "node";
+		}
+		
+	})
+	
+    .append("text")
+      .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
+      .attr("dy", ".31em")
+      .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+      .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
+	  
+      .text(function(d) { 
+	  if(d.key!=d._embedded.subject.displayName)
+	  {
+		  return d.relTypeLabel;
+	  }
+	  
+	  
+	  
+	   })
+	    .append("tspan")
+		.attr("dx", function(d) {   if(d.key!=d._embedded.subject.displayName) {return d.x < 180 ? -120 : -120; } else { return d.x < 180 ? -10 : -10; }})
+      .attr("dy", "1em")
+      .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+      .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
+	  
+      .text(function(d) { return d.key; })
+	 
+});
+
+d3.select(self.frameElement).style("height", diameter + "px");
+$("#chart-info").removeClass("hide");	
+}
+else {
+$("#chart-info").removeClass("hide");	
+}
+// Lazily construct the package hierarchy from class names.
+function packageHierarchy(classes) {
+  var map = {};
+  function find(name, data) {
+	 console.log("Finding " + name + " in " + data);
+	 
+    var node = map[name], i;
+	
+    if (!node) {
+      node = map[name] = data || {name: name, children: []};
+	 console.log("not node");
+      if (name.length) {
+		  	 console.log("there is a name, it is " + name);
+        node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+        node.parent.children.push(node);
+		//node.parent.children.subject.push(name);
+		
+        node.key = name;
+		node.name = name;
+		console.log("Name and not node");
+		if(data){node.imports = [data._embedded.subject.displayName,data._embedded.subject._links.self.href, data._embedded.object.displayName,data._embedded.object._links.self.href];} else {  node.imports = ""; }
+      } 
+    } 
+	
+	else if(data && name) {
+
+			if(data._embedded) {
+			
+	node = map[data._embedded.subject.displayName];
+	 if (!node) {
+      node = map[data._embedded.subject.displayName] = data || {name: data._embedded.subject.displayName, children: []};
+	 
+      if (data._embedded.subject.displayName.length) {
+        node.parent = find(data._embedded.subject.displayName.substring(0, i = data._embedded.subject.displayName.lastIndexOf(".")));
+        node.parent.children.push(node);
+		//node.parent.children.subject.push(name);
+		
+        node.key = data._embedded.subject.displayName;
+		node.name = data._embedded.subject.displayName;
+		if(data){node.imports = [data._embedded.subject.displayName, data._embedded.object.displayName];} else { node.imports = ""; }
+      }
+	 else {
+		 //assuming there is no name or data
+		console.log("*************No name or data**************");
+		 
+	 }
+		 
+		
+	}}}
+	
+	
+  
+		
+	
+    return node;
+
+}
+  classes.forEach(function(d) {
+	  console.log(d);
+	  if(d._embedded !="") {
+    find(d._embedded.object.displayName, d);
+	 //  find(d._embedded.subject.displayName, d);
+	  } else {
+		  console.log("Not available in classes");
+	  }
+	//find(d._embedded.subject.displayName, d._embedded);
+  });
+  return map[""];
+}
+
+// Return a list of imports for the given array of nodes.
+function packageImports(nodes) {
+  var map = {},
+      imports = [];
+if(nodes) {
+  // Compute a map from name to node.
+  nodes.forEach(function(d) {
+    map[d.name] = d;
+	 
+  });
+
+   // For each import, construct a link from the source to target node.
+  nodes.forEach(function(d) {
+	
+    if (d.imports) 
+	{d.imports.forEach(function(i) {
+		
+		if(map[i]){
+ imports.push({source: map[d.name], target: map[i]});
+		}
+	//	else {
+	//	imports.push({source: map[d.name], target: map[d.name]});
+		//}
+    });} else {
+	}
+  });
+
+}
+  return imports;
+}
+  function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+	
+function getURL(url)
+	{
+var fromurl = "http://54.72.154.243" +url.dataset.url;	
+
+		var networkres="";
+		var name = url.dataset.name;
+		var networkurl = "";
+		var api = traverson
+		.from(fromurl) // set root URL
+		.jsonHal()
+		.follow("network")
+			.getResource(function(error, resource, traversal) {
+					networkres= resource._links.self.href;
+					window.location.replace("http://54.76.94.166/chart/?id=" + encodeURIComponent(networkres) + "&name=" + name);
+			});
+				
+			//window.location.replace("/charts");
+
+	}
+	
+function getType(type) {
+	if(type=="corp")
+	return "/organisation/?id=";
+	
+	if(type=="person")
+	return "/person/?id=";
+		
+	if(type=="exhibition")
+	return "/exhibition/?id=";
+		
+}
+
+</script>
+</div>
+<footer class="row">
+<div class="large-12 columns"><hr>
+<div class="row">
+<div class="large-8 columns">
+<ul class="inline-list left">
+<li><a href="http://jisc.ac.uk/"><img src="../images/jisc.png" alt="jisc.ac.uk" /></a></li>
+<li><a href="http://arts.brighton.ac.uk/collections/design-archives/"><img src="../images/university-of-brighton-design-archives.png" alt="University of Brighton Design Archives" /></a></li>
+<li><a href="http://www.ahrc.ac.uk/Pages/Home.aspx"><img src="../images/ahrc.png" alt="Arts and Humanities Research Council" /> </a> </li>
+</ul>
+</div>
+<div class="large-4 columns">
+<ul class="inline-list right">
+<li><a href="http://jisc.ac.uk/website/cookies">Privacy and cookies</a></li>
+<li><a href="http://blog.archiveshub.ac.uk/category/exploring-british-design/">Blog</a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+<script type="text/javascript" src="../js/featherlight.js"></script>
+</body>
