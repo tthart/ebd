@@ -98,19 +98,9 @@ if(getParameterByName('id')) {
 	}
 	
 	
-//'live'
-        //var url = "http://54.72.154.243" + uri;
+
+        var url = "http://54.72.154.243" + uri;
 		
-		//local testing ebdtest
-		var url = "http://130.88.139.69:5551/" + uri;
-		
-		//Testing
-		//Network 
-	//	        var url = "http://130.88.139.69:5551/ebdtest/network/http%3A//viaf.org/viaf/51792789";
-		//Network grouped
-		//var url = "http://petej.info/ebd/networkGrouped/http%3A//viaf.org/viaf/51792789";
-		
-		console.log(url);
         var href;
         var html;
         var name;
@@ -118,7 +108,7 @@ if(getParameterByName('id')) {
             .from(url) // set root URL
             .jsonHal();
 
-
+var count =0;
    
 
 var diameter = 900,
@@ -151,20 +141,20 @@ var svg = d3.select("#chart").append("svg")
             var obj;
 			var note;
 			var decodeU;
-			console.log("Api result:");
+console.log(url);
 	
-		if(!resource._embedded.relation) {
+		if(!resource._embedded.object) {
 			console.log("no relations");
 		
 		} else 
 		{
-			console.log(resource._embedded.relation);
-  var nodes = cluster.nodes(packageHierarchy(resource._embedded.relation)),
+	
+  var nodes = cluster.nodes(packageHierarchy(resource._embedded.object)),
       links = packageImports(nodes);
 		}
 		var decodeU;
 		
-  svg.selectAll(".link")
+   svg.selectAll(".link")
       .data(bundle(links))
     .enter().append("path")
       .attr("class", "link")
@@ -172,83 +162,23 @@ var svg = d3.select("#chart").append("svg")
 
   svg.selectAll(".node")
       .data(nodes.filter(function(n) { return !n.children; }))
-	  
-    .enter()
-		 .append('a')
-    .attr("xlink:href", "#"/*function(d){return d.relTypeLabel;}*/)
-//Popup information
-	.attr("data-featherlight",
-	function(d){
-		var type = "";
-		var urlstring = "";
-		var networkurl = "";
-	for(var key in d._embedded.subject)
-	{
-		if(d.key==d._embedded.subject[key].displayName){
-			type = d._embedded.subject[key].type;
-			urlstring = getType(type);
-			//	networkurl = getNetworkURL("test");
-		decodeU = encodeURIComponent(d._embedded.subject[key]._links.self.href);
-			var html='<h3>' + d._embedded.subject[key].displayName + '</h3><a href="'+urlstring+decodeU+'" class="button success">View more information about the entity</a>';
-		//	html+='<a href="/chart/?id='+networkurl+'" class="button success">Open the chart for this entity</a>';
-		return html;
-		}
-		else {
-		decodeU = encodeURIComponent(d._embedded.object[0]._links.self.href);
-			type = d._embedded.subject[0].type;
-			urlstring = getType(type);
-				var html="";
-		html+='<h3>'+d._embedded.subject[0].displayName+'</h3>';
-		html+='<h4><abbr class="init" title="'+d.relTypeDef+'">'+d.relTypeLabel+'</abbr></h4>';
-		html+='<h3>'+d._embedded.object[0].displayName+'</h3>';
-			
-		html+='<a href="'+urlstring+decodeU+'" class="button success">View more information about the entity</a>';
-		html+='<a href="#" data-url="'+d._embedded.object[0]._links.self.href+'" data-name="'+d.key+'" onclick="getURL(this)" class="button success">Open the chart for this entity</a>'
-		return html;
-		}
-	}
-		}
-		)
-	.append("g")
-	.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
-	.attr("class", function(n) {
-		var string = n.key;
-		console.log(n._embedded.object[0].displayName+" " +n._embedded.subject[0].displayName);
-		//var result = string.search(n._embedded.subject.displayName);
-		//console.log(result);
-		console.log(string);
-		if(n.key==n._embedded.subject[0].displayName)
-		{
-			return "aNode node";
-		}  
-		else {
-			return "node";
-		}
-		
-	})
-	
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
     .append("text")
       .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
       .attr("dy", ".31em")
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
       .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
-	  
-      .text(function(d) { 
-	  if(d.key!=d._embedded.subject[0].displayName)
-	  {
-		  return d.relTypeLabel;
-	  }
-	  
-	  
-	  
-	   })
-	    .append("tspan")
-		.attr("dx", function(d) {   if(d.key!=d._embedded.subject[0].displayName) {return d.x < 180 ? -120 : -120; } else { return d.x < 180 ? -10 : -10; }})
-      .attr("dy", "1em")
-      .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-      .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
-	  
       .text(function(d) { return d.key; })
+.append("tspan")
+.text(function(d) { 
+return d.relationType;
+console.log(d);
+	
+});
+	  
+  
 	 
 });
 
@@ -262,49 +192,63 @@ $("#chart-info").removeClass("hide");
 function packageHierarchy(classes) {
   var map = {};
   function find(name, data) {
-	 
+count++;
+	 console.log(count);
     var node = map[name], i;
 	
     if (!node) {
+		
       node = map[name] = data || {name: name, children: []};
-	 
-      if (name) {
+	 console.log("not node");
+      if (name.length) {
+		  	 console.log("there is a name, it is " + name);
         node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
         node.parent.children.push(node);
 		//node.parent.children.subject.push(name);
 		
         node.key = name;
 		node.name = name;
-		if(data){
-			for(var key in data._embedded.subject)
-			{
-			node.imports = [data._embedded.subject[key].displayName,data._embedded.subject[key]._links.self.href, data._embedded.object[0].displayName,data._embedded.object[0]._links.self.href];
-			}
-			} else { console.log(node); node.imports = ""; }
-      }
+	//	node.relationType = data._embedded.relation[0].relTypeLabel;
+		console.log(data);
+	//	if(data){ node.imports = [data._embedded.relation[0]._embedded.subject.displayName];} else {  node.imports = ""; }
+      } 
     } 
-	else {
-		if(data) {
-			console.log(data);
-				for(var key in data._embedded.subject)
-			{
+	
+	else if(data && name) {
+
 			if(data._embedded) {
-	node = map[data._embedded.subject[key].displayName];
+				  obj = data._embedded.relation;
+		  for(var key in obj)
+	  {  	
+	node = map[data.displayName];
 	 if (!node) {
-      node = map[data._embedded.subject[key].displayName] = data || {name: data._embedded.subject[key].displayName, children: []};
-	 
-      if (data._embedded.subject[key].displayName.length) {
-        node.parent = find(data._embedded.subject[key].displayName.substring(0, i = data._embedded.subject[key].displayName.lastIndexOf(".")));
+		
+	
+      node = map[data.displayName] = data || {name: data.displayName, children: []};
+	      node.relationType = obj[key].relTypeLabel;          
+	  
+	
+	 node.relationDef = obj[key].relTypeDef;
+      if (data.displayName.length) {
+        node.parent = find(obj[key]._embedded.subject.displayName.substring(0, i = obj[key]._embedded.subject.displayName.lastIndexOf(".")));
         node.parent.children.push(node);
 		//node.parent.children.subject.push(name);
-		
-        node.key = data._embedded.subject[key].displayName;
-		node.name = data._embedded.subject[key].displayName;
-		if(data){node.imports = [data._embedded.subject[key].displayName, data._embedded.object[0].displayName];} else { console.log(node); node.imports = ""; }
+		console.log(data);
+        node.key = data.displayName;
+		node.name = data.displayName;
+		if(data){
+			
+			node.imports = [obj[key]._embedded.subject.displayName, obj[key]._embedded.subject.displayName];
+			} else { node.imports = ""; }
+	   
       }
+	 else {
+		 //assuming there is no name or data
+		console.log("*************No name or data**************");
+		 
 	 }
-			}
-		
+		 
+	  }
 	}}}
 	
 	
@@ -315,12 +259,15 @@ function packageHierarchy(classes) {
 
 }
   classes.forEach(function(d) {
+	  console.log(d);
 	  if(d._embedded !="") {
-    find(d._embedded.object[0].displayName, d);
-	   find(d._embedded.subject[0].displayName, d);
+		  obj=d._embedded.relation;
+		  for(var key in obj){
+    find(obj[key]._embedded.subject.displayName, d);
+	//  find(d.displayName, d);
+		  }
 	  } else {
 		  console.log("Not available in classes");
-		console.log(d);  
 	  }
 	//find(d._embedded.subject.displayName, d._embedded);
   });
@@ -343,8 +290,7 @@ if(nodes) {
 	
     if (d.imports) 
 	{d.imports.forEach(function(i) {
-	//	console.log(i);
-		//console.log(d.name);
+		
 		if(map[i]){
  imports.push({source: map[d.name], target: map[i]});
 		}
@@ -368,7 +314,7 @@ if(nodes) {
 function getURL(url)
 	{
 var fromurl = "http://54.72.154.243" +url.dataset.url;	
-	console.log(url.dataset.url);
+
 		var networkres="";
 		var name = url.dataset.name;
 		var networkurl = "";
@@ -377,11 +323,10 @@ var fromurl = "http://54.72.154.243" +url.dataset.url;
 		.jsonHal()
 		.follow("network")
 			.getResource(function(error, resource, traversal) {
-					console.log(resource._links.self.href);
 					networkres= resource._links.self.href;
 					window.location.replace("http://54.76.94.166/chart/?id=" + encodeURIComponent(networkres) + "&name=" + name);
 			});
-				console.log(networkurl);
+				
 			//window.location.replace("/charts");
 
 	}

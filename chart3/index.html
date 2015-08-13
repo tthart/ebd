@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script src="../js/foundation.min.js"></script>
+<script type="text/javascript" src="../js/traverson-hal.js"></script>
+<script type="text/javascript" src="../js/traverson.js"></script>
+<script data-pace-options="elements: { selectors: ['#chart']; }" src="../js/pace.min.js"></script>
+<script src="../js/main.js"></script>
+<style>
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+</style>
+<title>Exploring British Design - Chart</title>
+<link rel="stylesheet" type="text/css" href="../css/foundation.min.css">
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href="//cdn.rawgit.com/noelboss/featherlight/1.3.2/release/featherlight.min.css" type="text/css" rel="stylesheet" title="Featherlight Styles" />
+</head>
+<body>
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="/">Exploring British Design</a></h1>
+    </li>
+    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+  <section class="top-bar-section"> 
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li><a href="/about/">About</a></li>
+      <li><a href="/people/">People</a></li>
+      <li><a href="/organisations/">Organisations</a></li>
+      <li><a href="/exhibitions/">Exhibitions</a></li>
+      <li><a href="/places/">Places</a></li>
+    </ul>
+  </section>
+</nav>
+<div id="chart-info" class="row hide">
+  </div>
+<div id="chart"></div>
+<script src="http://d3js.org/d3.v3.min.js"></script> 
+
+<script>
+
+var uri = "";
+
+
+
+	
+ traverson.registerMediaType(TraversonJsonHalAdapter.mediaType,
+        TraversonJsonHalAdapter);
+		
+/*******************/
+
+	
+
+		var url = "http://130.88.139.69:5551/ebd/network/http%3A//viaf.org/viaf/16159937"
+		
+		console.log(url);
+        var href;
+        var html;
+        var name;
+        var api = traverson
+            .from(url) // set root URL
+            .jsonHal();
+			
+var width = 960,
+    height = 2200;
+
+var cluster = d3.layout.cluster()
+    .size([height, width - 160]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(40,0)");
+
+  api.newRequest().getResource(function(error, root, traversal) {
+  if (error) throw error;
+
+  var nodes = cluster.nodes(root._embedded.relation),
+      links = cluster.links(nodes);
+
+  var link = svg.selectAll(".link")
+      .data(links)
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("d", diagonal);
+
+  var node = svg.selectAll(".node")
+      .data(nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+
+  node.append("circle")
+      .attr("r", 4.5);
+
+  node.append("text")
+      .attr("dx", function(d) { return d.children ? -8 : 8; })
+      .attr("dy", 3)
+      .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
+      .text(function(d) {   console.log(d[0]._embedded.subject[0].displayName);return d[0]._embedded.subject[0].displayName; });
+	
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>
+</div>
+<footer class="row">
+  <div class="large-12 columns">
+    <hr>
+    <div class="row">
+      <div class="large-8 columns">
+        <ul class="inline-list left">
+          <li><a href="http://jisc.ac.uk/"><img src="../images/jisc.png" alt="jisc.ac.uk" /></a></li>
+          <li><a href="http://arts.brighton.ac.uk/collections/design-archives/"><img src="../images/university-of-brighton-design-archives.png" alt="University of Brighton Design Archives" /></a></li>
+          <li><a href="http://www.ahrc.ac.uk/Pages/Home.aspx"><img src="../images/ahrc.png" alt="Arts and Humanities Research Council" /> </a> </li>
+        </ul>
+      </div>
+      <div class="large-4 columns">
+        <ul class="inline-list right">
+          <li><a href="http://jisc.ac.uk/website/cookies">Privacy and cookies</a></li>
+          <li><a href="http://blog.archiveshub.ac.uk/category/exploring-british-design/">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<script type="text/javascript" src="../js/featherlight.js"></script>
+</body>
